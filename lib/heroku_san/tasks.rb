@@ -2,15 +2,15 @@ HEROKU_CONFIG_FILE = File.join(RAILS_ROOT, 'config', 'heroku.yml')
 
 HEROKU_SETTINGS =
   if File.exists?(HEROKU_CONFIG_FILE)
-    YAML.load_file(HEROKU_CONFIG_FILE) 
+    YAML.load_file(HEROKU_CONFIG_FILE)
   else
-    {} 
+    {}
   end
 
 (HEROKU_SETTINGS['apps'] || []).each do |name, app|
   desc "Select #{name} Heroku app for later commands"
   task name do
-    @heroku_apps ||= [] 
+    @heroku_apps ||= []
     @heroku_apps << name
   end
 end
@@ -22,7 +22,7 @@ end
 
 namespace :heroku do
   desc "Generate the Heroku gems manifest from gem dependencies"
-  task :gems => 'gems:base' do
+  task :gems do
     RAILS_ENV='production'
     Rake::Task[:environment].invoke
     list = []
@@ -47,7 +47,7 @@ namespace :heroku do
       system("git remote add #{name} #{repo}")
     end
   end
-  
+
   desc 'Adds a collaborator'
   task :share do
     print "Email address of collaborator to add: "
@@ -76,7 +76,7 @@ namespace :heroku do
       puts
     end
   end
-  
+
   desc 'Add proper RACK_ENV to each application'
   task :rack_env => :all do
     each_heroku_app do |name, app, repo|
@@ -88,7 +88,7 @@ namespace :heroku do
       end
     end
   end
-  
+
   desc 'Creates an example configuration file'
   task :create_config do
     example = File.join(File.dirname(__FILE__), '..', 'templates', 'heroku.example.yml')
@@ -192,7 +192,7 @@ def each_heroku_app
 
     puts "\nYou can use also command all Heroku apps for this project:
       rake all heroku:share"
-      
+
     exit(1)
   end
 end

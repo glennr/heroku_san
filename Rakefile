@@ -3,7 +3,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "heroku_san"
+    gem.name = "glennr-heroku_san"
     gem.summary = %Q{A bunch of useful Rake tasks for managing your Heroku apps}
     gem.description = %Q{Manage multiple Heroku instances/apps for a single Rails app using Rake}
     gem.email = "glenn.roberts@siyelo.com"
