@@ -18,7 +18,7 @@ Rake tasks are not automatically loaded from gems, so you’ll need to add the f
 
 To install as a plugin:
 
-  script/plugin install git://github.com/glennr/heroku_san.git
+  script/plugin install git://github.com/fastestforward/heroku_san.git
 
 == Configure
 
@@ -30,16 +30,21 @@ In config/heroku.yml you will need add the Heroku apps that you would like to at
     staging: awesomeapp-staging
     demo: awesomeapp-demo
     
+If this is a fresh project, heroku_san can create all the applications for 
+you, and set the RACK_ENV.
+
+  rake all heroku:create heroku:rack_env
+
 == Usage
 
-After configuring your Heroku apps you can use a rake tasks to control the 
+After configuring your Heroku apps you can use rake tasks to control the 
 apps.
 
   rake production deploy
   
 A rake task with the shorthand name of each app is now available and adds that
 server to the list that subsequent commands will execute on. Because this list
-is additive, you can easily select which servers to run a command on
+is additive, you can easily select which servers to run a command on.
 
   rake demo staging restart
 
@@ -63,6 +68,7 @@ A full list of tasks provided:
   rake deploy                # Deploys, migrates and restarts latest code.
   rake capture               # Captures a bundle on Heroku
   rake heroku:apps           # Lists configured apps
+  rake heroku:create         # Creates the Heroku app
   rake heroku:create_config  # Creates an example configuration file
   rake heroku:gems           # Generate the Heroku gems manifest from gem dependencies
   rake heroku:remotes        # Add git remotes for all apps in this project
